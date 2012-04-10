@@ -1,0 +1,9 @@
+#!/usr/bin/env python
+# encoding: utf-8
+
+from distutils.core import setup
+
+setup(name='hydna', version='0.1',
+      description='Python client for Hydna.',
+      author='Gustaf Sjöberg', author_email='gs@hydna.com',
+      packages=['hydna'])
