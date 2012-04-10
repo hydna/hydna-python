@@ -124,7 +124,7 @@ def path_to_channel(path):
 
     try:
         channel = int(bits[0])
-        if channel > MAX_CHANNEL_VALUE:
+        if not 0 < channel < MAX_CHANNEL_VALUE:
             raise exceptions.ChannelError("Invalid channel.")
         return channel
     except ValueError:
