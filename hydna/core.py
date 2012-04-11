@@ -91,8 +91,8 @@ def parse_uri(uri):
 
     bits = urlparse.urlparse(uri)
 
-    if not bits.scheme:
-        raise exceptions.URIError("No netloc parsed.")
+    if not bits.netloc:
+        raise exceptions.URIError("No domain name parsed.")
 
     channel = path_to_channel(bits.path)
     token = clean_token(bits.query or None)
