@@ -60,10 +60,9 @@ def send(uri, data, emit, origin, ua, priority=None):
     if priority is not None:
         headers['X-Priority'] = priority
 
-    path = '/%s/' % channel
     if token is not None:
-        path = '%s?%s' % (path, urllib.quote(token))
-    con.request('POST', '/%s/' % channel, data, headers)
+        channel = '%s?%s' % (channel, urllib.quote(token))
+    con.request('POST', channel, data, headers)
 
     r = con.getresponse()
 

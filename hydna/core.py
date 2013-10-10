@@ -63,26 +63,17 @@ def parse_uri(uri):
     be properly parsed.
 
     >>> parse_uri("http://public.hydna.net/?token")
-    ('http', 'public.hydna.net', 1, 'token')
+    ('http', 'public.hydna.net', '/', 'token')
 
     >>> parse_uri("http://public.hydna.net/")
-    ('http', 'public.hydna.net', 1, None)
+    ('http', 'public.hydna.net', '/', None)
 
     >>> parse_uri("http://public.hydna.net/312")
-    ('http', 'public.hydna.net', 312, None)
+    ('http', 'public.hydna.net', '/312', None)
 
     >>> parse_uri("http://public.hydna.net/312/")
-    ('http', 'public.hydna.net', 312, None)
+    ('http', 'public.hydna.net', '/312/', None)
 
-    >>> try:
-    ...     parse_uri("http://public.hydna.net/312/312/")
-    ... except exceptions.ChannelError:
-    ...    pass
-
-    >>> try:
-    ...     parse_uri("http://public.hydna.net/abc/")
-    ... except exceptions.ChannelError:
-    ...    pass
     """
     # we're assuming that the user meant to use regular HTTP if no
     # scheme name was specified.
@@ -94,41 +85,10 @@ def parse_uri(uri):
     if not bits.netloc:
         raise exceptions.URIError("No domain name parsed.")
 
-    channel = path_to_channel(bits.path)
+    channel = bits.path
     token = clean_token(bits.query or None)
 
     return (bits.scheme, bits.netloc, channel, token)
-
-def path_to_channel(path):
-    """Return channel extracted from `path`.
-
-    Will raise `ChannelError` if channel could not be parsed.
-
-    >>> path_to_channel('/2/')
-    2
-    >>> path_to_channel('/2')
-    2
-    >>> path_to_channel('/')
-    1
-
-    """
-    bits = [s for s in path.split('/') if s.strip()]
-
-    if len(bits) > 1:
-        raise exceptions.ChannelError("Unable to parse channel.")
-
-    if not bits:
-        # we return the default channel if no channel was explicitly specified
-        # in the path.
-        return DEFAULT_CHANNEL
-
-    try:
-        channel = int(bits[0])
-        if not 0 < channel < MAX_CHANNEL_VALUE:
-            raise exceptions.ChannelError("Invalid channel.")
-        return channel
-    except ValueError:
-        raise exceptions.ChannelError("Channel is not an integer value.")
 
 if __name__ == '__main__':
     import doctest
