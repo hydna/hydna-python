@@ -65,6 +65,9 @@ def parse_uri(uri):
     >>> parse_uri("http://public.hydna.net/?token")
     ('http', 'public.hydna.net', '/', 'token')
 
+    >>> parse_uri("http://public.hydna.net")
+    ('http', 'public.hydna.net', '/', None)
+
     >>> parse_uri("http://public.hydna.net/")
     ('http', 'public.hydna.net', '/', None)
 
@@ -85,7 +88,7 @@ def parse_uri(uri):
     if not bits.netloc:
         raise exceptions.URIError("No domain name parsed.")
 
-    channel = bits.path
+    channel = bits.path or '/'
     token = clean_token(bits.query or None)
 
     return (bits.scheme, bits.netloc, channel, token)
