@@ -10,13 +10,13 @@ def push(uri, data, origin=None, ua=core.DEFAULT_UA, priority=None):
 
         `origin` - origin of the request.
         `ua` - specify custom user agent
-        `priority` - priority of message (1 - 3)
+        `priority` - priority of message (0 - 3)
 
     Will raise `RequestError` when request fails. See `core.parse_uri`
     for other exceptions.
 
     """
-    if priority is not None and priority not in (1, 2, 3):
+    if priority is not None and priority not in (0, 1, 2, 3):
         raise exceptions.PriorityError("Invalid priority.")
     return send(uri, data, emit=False, origin=origin, ua=ua,
                 priority=priority)
