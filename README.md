@@ -23,7 +23,7 @@ The `hydna`-package exposes two functions:
     import hydna
 
     # send a message
-    hydna.push('public.hydna.net/1122556827', 'test')
+    hydna.send('public.hydna.net/python-test', 'hello world')
 
     # emit a signal
-    hydna.emit('public.hydna.net/1122556827', 'test')
+    hydna.emit('public.hydna.net/python-test', 'hello world signal')
