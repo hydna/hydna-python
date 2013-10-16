@@ -4,21 +4,21 @@ import urllib
 from hydna import core
 from hydna import exceptions
 
-def push(uri, data, origin=None, ua=core.DEFAULT_UA, priority=None):
+def send(uri, data, origin=None, ua=core.DEFAULT_UA, priority=None):
     """Send `data` to `uri` and return `True` on successful request. Optional
     arguments:
 
         `origin` - origin of the request.
         `ua` - specify custom user agent
-        `priority` - priority of message (0 - 3)
+        `priority` - priority of message (0 - 7)
 
     Will raise `RequestError` when request fails. See `core.parse_uri`
     for other exceptions.
 
     """
-    if priority is not None and priority not in (0, 1, 2, 3):
+    if priority is not None and priority not in xrange(0, 8):
         raise exceptions.PriorityError("Invalid priority.")
-    return send(uri, data, emit=False, origin=origin, ua=ua,
+    return push(uri, data, emit=False, origin=origin, ua=ua,
                 priority=priority)
 
 def emit(uri, data, origin=None, ua=core.DEFAULT_UA):
@@ -32,9 +32,9 @@ def emit(uri, data, origin=None, ua=core.DEFAULT_UA):
     for other exceptions.
 
     """
-    return send(uri, data, emit=True, origin=origin, ua=ua)
+    return push(uri, data, emit=True, origin=origin, ua=ua)
 
-def send(uri, data, emit, origin, ua, priority=None):
+def push(uri, data, emit, origin, ua, priority=None):
     if priority is not None and emit:
         raise exceptions.PriorityError("Cannot set a priority when emitting "
                                        "signals.")
