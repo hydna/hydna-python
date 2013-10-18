@@ -4,10 +4,8 @@ import urlparse
 
 from hydna import exceptions
 
-DEFAULT_CHANNEL = 1
 DEFAULT_UA = 'Hydna Python Client'
 
-MAX_CHANNEL_VALUE = 0xFFFFFFFF
 MAX_PAYLOAD_SIZE = 0xFFF8
 MAX_TOKEN_SIZE = 0xFFF8
 
