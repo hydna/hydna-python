@@ -1,4 +1,5 @@
 import httplib
+import socket
 import urllib
 
 from hydna import core
@@ -62,7 +63,11 @@ def push(uri, data, emit, origin, ua, priority=None):
 
     if token is not None:
         channel = '%s?%s' % (channel, urllib.quote(token))
-    con.request('POST', channel, data, headers)
+
+    try:
+        con.request('POST', channel, data, headers)
+    except socket.gaierror:
+        raise exceptions.RequestError("Unable to resolve hostname.")
 
     r = con.getresponse()
 
