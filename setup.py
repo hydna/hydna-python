@@ -3,7 +3,7 @@
 
 from distutils.core import setup
 
-setup(name='hydna', version='0.1.1',
+setup(name='hydna', version='0.1.2',
       description='Python client for Hydna.',
       author='Gustaf Sjöberg', author_email='gs@hydna.com',
       packages=['hydna'])
