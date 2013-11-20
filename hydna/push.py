@@ -43,6 +43,8 @@ def push(uri, data, emit, origin, ua, priority=None):
                                        "signals.")
 
     (scheme, domain, channel, token) = core.parse_uri(uri)
+    data = core.clean_payload(data)
+    token = core.clean_token(token)
 
     if scheme == 'https':
         # does not validate certificate!

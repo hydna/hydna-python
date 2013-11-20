@@ -6,8 +6,8 @@ from hydna import exceptions
 
 DEFAULT_UA = 'Hydna Python Client'
 
-MAX_PAYLOAD_SIZE = 0xFFF8
-MAX_TOKEN_SIZE = 0xFFF8
+MAX_PAYLOAD_SIZE = 0xFFFA
+MAX_TOKEN_SIZE = MAX_PAYLOAD_SIZE
 
 def clean_payload(payload):
     """Raise `PayloadError` if the length of `payload` (in bytes)
